@@ -14,9 +14,9 @@ const output = {
 };
 
 const process = {
-    login: (req, res) => {
+    login: async (req, res) => {
         const user = new User(req.body); //User class body로 들어감
-        const response = user.login();
+        const response = await user.login();
         return res.json(response);
     },
     register: (req, res) => {

@@ -1,6 +1,6 @@
 "use strict";
 
-const UserStorage = require("../../models/UserStorage");
+const User = require("../../models/User");
 const output = {
     hello: (req, res) => {
         res.render("home/index"); //home은 views의 home
@@ -12,21 +12,8 @@ const output = {
 
 const process = {
     login: (req, res) => {
-        const id = req.body.id,
-        psword = req.body.psword;
-        const users = UserStorage.getUsers("id", "psword");
-
-        const response = {};
-        if (users.id.includes(id)) {
-            const idx = users.id.indexOf(id); // idx id의 인덱스
-            if (users.psword[idx] === psword) {
-                response.success = true;
-                return res.json(response);
-            }
-        }
-
-        response.success = false;
-        response.msg = "Login failed.";
+        const user = new User(req.body); //User class body로 들어감
+        const response = user.login();
         return res.json(response);
     },
 };

@@ -1,5 +1,6 @@
 "use strict";
 
+const { response } = require("express");
 const UserStorage = require("./UserStorage");
 
 class User {
@@ -8,16 +9,22 @@ class User {
   }
 
   login() {
-    const body = this.body;
-    const { id, psword } = UserStorage.getUserInfo(body.id);
+    const client = this.body;
+    const { id, psword } = UserStorage.getUserInfo(client.id);
 
     if (id) {
-      if (id === body.id && psword === body.psword) {
+        if (id === client.id && psword === client.psword) {
         return { success: true };
       }
       return { success: false, msg: "The password is wrong." };
     }
     return { success: false, msg: "ID does not exist." };
+  }
+  
+  register() {
+    const client = this.body;
+    const response = UserStorage.save(client);
+    return response;
   }
 }
 

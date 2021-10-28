@@ -10,7 +10,8 @@ registerBtn.addEventListener("click", register);
 
 function register (){
     if (!id.value) return alert("Please enter your ID.");
-    if (psword.value !== confirmPsword.value) return alert("Passwords do not match.");
+    if (psword.value !== confirmPsword.value)
+        return alert("Passwords do not match.");
   
     const req = {
         id: id.value,
